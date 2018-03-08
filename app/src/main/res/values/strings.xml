@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Bird Watching</string>
+
+    <!-- authentication -->
+    <string name="action_sign_in_short">Register</string>
+    <string name="email">Email</string>
+    <string name="prompt_email">Please enter your email</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters</string>
+    <string name="auth_failed">Email/password combination is wrong</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="prompt_password">Please enter your password</string>
+    <string name="btn_link_to_register">Get registered here!</string>
+    <string name="btn_link_to_login">Already registered. Login!</string>
+    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="btn_sign_out">Sign Out</string>
+</resources>
