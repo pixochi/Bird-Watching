@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -109,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void goToAddObservation() {
-//		Intent intent = new Intent(this, AddObservationActivity.class);
-//		startActivity(intent);
-		Log.d("navigation","go to addObservation clicked");
+		Intent intent = new Intent(this, AddObservationActivity.class);
+		startActivity(intent);
 	}
 }
