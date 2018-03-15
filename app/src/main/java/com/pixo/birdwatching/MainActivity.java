@@ -2,9 +2,15 @@ package com.pixo.birdwatching;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Debug;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +27,6 @@ import com.pixo.birdwatching.AccountActivity.SignupActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-	private Button signOutButton;
 	private FirebaseAuth auth;
 	private TextView email;
 	private  FirebaseAuth.AuthStateListener authListener;
@@ -30,41 +35,43 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		email = findViewById(R.id.useremail);
+
+		// ****************************
+		// TAB BAR
+		// ****************************
+		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+		// Add Fragments to adapter
+		adapter.addFragment(new MyBirdsFragment(), "My Birds");
+		adapter.addFragment(new AllBirdsFragment(), "All Birds");
+		viewPager.setAdapter(adapter);
+
+		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		tabLayout.setupWithViewPager(viewPager);
+
+		// ****************************
+		// AUTHENTICATION
+		// ****************************
 
 		//firebase auth instance
 		auth = FirebaseAuth.getInstance();
 
 		//get current user
 		final FirebaseUser user = auth.getCurrentUser();
-		setDataToView(user);
 
 		authListener = new FirebaseAuth.AuthStateListener() {
 			@Override
 			public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-				FirebaseUser user = firebaseAuth.getCurrentUser();
-				if (user == null) {
-					// user logged out -> launch login activity
-					startActivity(new Intent(MainActivity.this, LoginActivity.class));
-					finish();
-				}
+			FirebaseUser user = firebaseAuth.getCurrentUser();
+			if (user == null) {
+				// user logged out -> launch login activity
+				startActivity(new Intent(MainActivity.this, LoginActivity.class));
+				finish();
+			}
 			}
 		};
-
-		signOutButton = (Button) findViewById(R.id.sign_out);
-		signOutButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				signOut();
-			}
-		});
-
 	}
-
-	private void setDataToView(FirebaseUser user) {
-		email.setText("User Email: " + user.getEmail());
-	}
-
 
 	public void signOut() {
 		auth.signOut();
@@ -82,5 +89,23 @@ public class MainActivity extends AppCompatActivity {
 		if (authListener != null) {
 			auth.removeAuthStateListener(authListener);
 		}
+	}
+
+//	ACTION BAR OPTIONS
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()){
+			case R.id.action_signout: {
+				signOut();
+				break;
+			}
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

@@ -13,8 +13,12 @@
     <string name="hint_password">Password</string>
     <string name="btn_login">LOGIN</string>
     <string name="prompt_password">Please enter your password</string>
-    <string name="btn_link_to_register">Get registered here!</string>
-    <string name="btn_link_to_login">Already registered. Login!</string>
+    <string name="btn_link_to_register">Get registered here</string>
+    <string name="btn_link_to_login">Already registered. Login here</string>
     <string name="btn_back"><![CDATA[<< Back]]></string>
     <string name="btn_sign_out">Sign Out</string>
+
+    <!-- app action bar -->
+    <string name="action_signout">Sign Out</string>
+
 </resources>
